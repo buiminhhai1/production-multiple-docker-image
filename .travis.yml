@@ -14,12 +14,13 @@ after_success:
   - docker build -t haibui/multi-server ./server
   - docker build -t haibui/multi-worker ./worker
   # Log in to the docker CLI
+  - echo docker logout
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Make take name for repository before push to docker
-  - docker tag multi-client $DOCKER_ID/multi-client
-  - docker tag multi-nginx $DOCKER_ID/multi-nginx
-  - docker tag multi-server $DOCKER_ID/multi-server
-  - docker tag multi-worker $DOCKER_ID/multi-worker
+  # - docker tag multi-client $DOCKER_ID/multi-client
+  # - docker tag multi-nginx $DOCKER_ID/multi-nginx
+  # - docker tag multi-server $DOCKER_ID/multi-server
+  # - docker tag multi-worker $DOCKER_ID/multi-worker
   # Take those images and push them to docker hub
   - docker push haibui/multi-client
   - docker push haibui/multi-nginx
