@@ -9,10 +9,10 @@ script:
   - docker run -e CI=true haibui/react-test npm run test
 
 after_success:
-  - docker build -t haibui/multi-client ./client
-  - docker build -t haibui/multi-nginx ./nginx
-  - docker build -t haibui/multi-server ./server
-  - docker build -t haibui/multi-worker ./worker
+  - docker build -t $DOCKER_ID/multi-client ./client
+  - docker build -t $DOCKER_ID/multi-nginx ./nginx
+  - docker build -t $DOCKER_ID/multi-server ./server
+  - docker build -t $DOCKER_ID/multi-worker ./worker
   # Log in to the docker CLI
   - echo docker logout
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
@@ -22,9 +22,9 @@ after_success:
   # - docker tag multi-server $DOCKER_ID/multi-server
   # - docker tag multi-worker $DOCKER_ID/multi-worker
   # Take those images and push them to docker hub
-  - docker push haibui/multi-client
-  - docker push haibui/multi-nginx
-  - docker push haibui/multi-server
-  - docker push haihai/multi-worker
+  - docker push $DOCKER_ID/multi-client
+  - docker push $DOCKER_ID/multi-nginx
+  - docker push $DOCKER_ID/multi-server
+  - docker push $DOCKER_ID/multi-worker
 
 
