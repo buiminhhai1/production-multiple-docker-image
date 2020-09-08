@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t haibui/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true haibui/react-test npm run test
+
+after_success:
+  - docker build -t haibui/multi-client ./client
+  - docker build -t haibui/multi-nginx ./nginx
+  - docker build -t haibui/multi-server ./server
+  - docker build -t haibui/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push haibui/multi-client
+  - docker push haibui/multi-nginx
+  - docker push haibui/multi-server
+  - docker push haihai/multi-worker
+
+
