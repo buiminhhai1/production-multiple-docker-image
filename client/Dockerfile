@@ -2,9 +2,8 @@ FROM node:alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 
-RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \ && ln -s /usr/local/bin/docker-entrypoint.sh /
 RUN npm install
 
 COPY ./ ./
