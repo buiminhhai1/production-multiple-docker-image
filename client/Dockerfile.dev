@@ -2,13 +2,10 @@ FROM node:alpine
 
 WORKDIR /app
 
-RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \ && ln -s /usr/local/bin/docker-entrypoint.sh /
-
 COPY package.json .
 
 RUN npm install
 
 COPY . .
-
 
 CMD ["npm", "run", "start"]

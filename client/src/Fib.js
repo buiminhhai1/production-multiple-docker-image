@@ -9,6 +9,7 @@ function Fib() {
   const fetchValue = async () => {
     const values = await axios.get('/api/values/current');
     setValues(values.data);
+    console.log('values', values);
   }
 
   const fetchIndexes = async () => {
@@ -22,11 +23,19 @@ function Fib() {
   }, []);
 
   const renderSeenIndexes = () => {
+    if (!seenIndexes || !seenIndexes.length || !Array.isArray(seenIndexes)) {
+      return '';
+    }
+    console.log(seenIndexes);
     return seenIndexes.map(({ number }) => number).join(', ');
   }
 
   const renderValues = () => {
     const entries = [];
+    if (!Array.isArray(seenIndexes)) {
+      return entries;
+    }
+
     for (let key in values) {
       entries.push(
         <div key={key}>For index {key} I calculated: {values[key]}</div>
