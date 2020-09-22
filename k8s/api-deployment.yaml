@@ -15,21 +15,24 @@ spec:
       containers:
         - name: api
           image: ngovietduc20088/multi-server
+          resources:
+              limits:
+                memory: "256Mi"
+                cpu: "500m"
           ports:
             - containerPort: 5000
           env:
             - name: REDIS_HOST
               value: redis-cluster-ip-service
-            - name: REDIS_HOST
+            - name: REDIS_PORT
               value: '6379'
             - name: PGUSER
               value: 'postgres'
             - name: PGHOST
               value: postgres-cluster-ip-service
+            - name: PGDATABASE
+              value: notesdb
             - name: PGPORT
               value: '5432'
             - name: PGPASSWORD
               value: password
-
-          
-    
